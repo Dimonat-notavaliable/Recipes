@@ -40,5 +40,7 @@
                 <p class="recipe-description">{{ recipe.description|truncatechars:350 }}</p>
             </div>
         </div>
+        {% empty %}
+        <h2>Ничего не найдено...</h2>
         {% endfor %}
 {% endblock %}

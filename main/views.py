@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models.functions import Lower
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.defaultfilters import title
 
 from .forms import RecipeForm
 from .models import Recipe
@@ -52,7 +50,7 @@ def recipe_add(request):
             recipe.author = request.user  # Установить текущего пользователя автором
             recipe.save()
             form.save_m2m()  # Сохранить связи ManyToMany
-            return redirect('home')
+            return redirect('recipe_user')
     else:
         form = RecipeForm()
     return render(request, 'recipe_form.html', {'form': form, 'title': "Добавить рецепт"})
@@ -66,7 +64,7 @@ def recipe_edit(request, recipe_id):
         form = RecipeForm(request.POST, request.FILES, instance=recipe)
         if form.is_valid():
             form.save()  # Сохраняем изменения
-            return redirect('recipe_list')
+            return redirect('recipe_user')
     else:
         form = RecipeForm(instance=recipe)
 
@@ -77,5 +75,5 @@ def recipe_delete(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     if request.method == 'POST':
         recipe.delete()
-        return redirect('home')
+        return redirect('recipe_user')
     return render(request, 'recipe_confirm_delete.html', {'recipe': recipe})

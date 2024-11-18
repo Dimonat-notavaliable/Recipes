@@ -14,31 +14,34 @@
     <script src="https://kit.fontawesome.com/6dfa2ab8ce.js" crossorigin="anonymous"></script>
 </head>
 <body>
-      <header class="bg-chocolate">
-        <div class="px-4 d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 mb-4">
-            <div class="d-flex nav-items">
-                <a href="{% url 'home' %}">
-                    <img height="64px" src="{% static 'img/logo.svg'%}" alt="logo">
-                </a>
-                <ul class="nav d-flex justify-content-center mb-md-0 align-items-center">
-                    <li><a href="{% url 'recipe_list' %}" class="nav-beige">Список рецептов</a></li>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'recipe_user' %}" class="nav-beige">Мои рецепты</a></li>
-                        <li><a href="{% url 'recipe_add' %}" class="nav-beige">Добавить рецепт</a></li>
-                    {% endif %}
-                    <li><a href="{% url 'about' %}" class="nav-beige">О нас</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 text-end">
+    <nav class="px-2 navbar navbar-expand-lg navbar-dark bg-chocolate mb-4">
+      <a class="navbar-brand" href="{% url 'home' %}"><img height="64px" src="{% static 'img/logo.svg'%}" alt="logo"></a>
+      <button
+              class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar"
+              aria-expanded="false" aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse collapse" id="navbar">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a href="{% url 'recipe_list' %}" class="nav-link nav-beige">Список рецептов</a></li>
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'recipe_user' %}" class="nav-link nav-beige">Мои рецепты</a></li>
+            <li class="nav-item"><a href="{% url 'recipe_add' %}" class="nav-link nav-beige">Добавить рецепт</a></li>
+            {% endif %}
+            <li class="nav-item"><a href="{% url 'about' %}" class="nav-link nav-beige">О нас</a></li>
+        </ul>
+        <div>
            {% if user.is_authenticated %}
                 <button type="button" class="btn btn-beige me-2" data-bs-toggle="modal" data-bs-target="#logoutModal">Выйти</button>
            {% else %}
                 <a href="{% url 'login' %}"><button type="button" class="btn btn-beige me-2" tabindex="-1">Войти</button></a>
                 <a href="{% url 'register' %}"><button type="button" class="btn btn-beige" tabindex="-1">Зарегистрироваться</button></a>
             {% endif %}
-            </div>
         </div>
-      </header>
+      </div>
+    </nav>
 
     <div class="container">
         {% if messages %}
